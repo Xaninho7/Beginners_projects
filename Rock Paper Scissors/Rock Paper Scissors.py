@@ -1,57 +1,58 @@
 import random
 
 options = ['rock', 'paper', 'scissors']
-result = 0
+player_result = 0
+comp_result = 0
 
 
-def game():
+while True:
     user = input('Rcok, Paper or Scissors? ').lower()
     comp = random.choice(options)
-    global result
 
     while user not in options:
         print('Invalid choice. Try again.')
         user = input('Rcok, Paper or Scissors? ').lower()
 
-    print(f'You chose {user} while the computer chose {comp}.')
+    print(f'You chose {user.upper()} while the computer chose {comp.upper()}.')
 
     if user == comp:
         print('Draw.')
     elif user == 'rock':
         if comp == 'paper':
             print('You lost.')
-            result -= 1
+            comp_result += 1
         else:
             print('You won')
-            result += 1
+            player_result += 1
     elif user == 'paper':
         if comp == 'scissors':
             print('You lost.')
-            result -= 1
+            comp_result += 1
         else:
             print('You won')
-            result += 1
+            player_result += 1
     else:
         if comp == 'rock':
             print('You lost.')
-            result -= 1
+            comp_result += 1
         else:
             print('You won')
-            result += 1
+            player_result += 1
 
     play_again = input('Would you like to play again? [Y]es or [N]o? ').lower()
     while play_again != 'y' and play_again != 'n':
         play_again = input('You must chose between [Y]es and [N]o! ').lower()
 
     if play_again == 'y':
-        game()
+        continue
     else:
-        if result == 0:
-            print('Thank you for playing! It was a draw!')
-        elif result < 0:
-            print('Thank you for playing! You lost against the computer!')
+        if comp_result == player_result:
+            print(f'Thank you for playing! {comp_result} - {player_result} It was a draw!')
+            break
+        elif comp_result - player_result > 0:
+            print(f'Thank you for playing! {player_result} - {comp_result} You lost against the computer!')
+            break
         else:
-            print('Thank you for playing! You beat the computer!')
+            print(f'Thank you for playing! {player_result} - {comp_result} You beat the computer!')
+            break
 
-
-game()
